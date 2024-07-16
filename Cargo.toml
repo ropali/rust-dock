@@ -1,0 +1,21 @@
+[package]
+edition = "2018"
+name = "rust-dock"
+description = "Docker Remote API in Rust"
+version = "0.1.0"
+authors = ["Ropali Munshi <ropali.py@gmail.com>"]
+license = "Apache-2.0"
+homepage = "https://github.com/ropali/rust-dock"
+repository = "https://github.com/ropali/rust-dock.git"
+documentation = "https://github.com/ropali/rust-dock"
+readme = "README.md"
+keywords = ["docker", "docker-api"]
+
+[dependencies]
+serde = "1.0.126"
+serde_derive = "1.0.126"
+serde_json = "1.0.64"
+hyper = "0.14.9"
+hyperlocal = "0.8.0"
+futures = "0.3.15"
+tokio = "1.7.0"
