@@ -8,7 +8,7 @@ With this in mind I will try to keep this crate as backwards compatible as possi
 
 Issues and PRs welcome.
 
-# Build Status
+## Build Status
 
 TBD
 
@@ -317,20 +317,4 @@ fn main() {
 ```
 
 ## Contributing
-
-To have a consistent dev environment one can use the docker image in /devenv like so:
-1. `git clone https://gitlab.com/kblobr/rust-docker`
-2. `cd rust-docker/devenv`
-3. `./build_docker` (this assumes your user can run docker commands, otherwise `sudo`)
-4. `./run_docker -ti`
-5. Already inside the container:
-  1. `cd Code`
-  2. `cargo test`
-
-For changes:
-
-1. Fork it
-2. Create your a new remote upstream repository (`git remote add upstream https://gitlab.com/kblobr/rust-docker`)
-3. Commit your changes (`git commit -m 'Adds some feature'`)
-4. Push to the branch (`git push origin your-branch`)
-5. Create new Pull Request
+TBD

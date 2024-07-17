@@ -7,13 +7,15 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ddfc8f3-71ab-4aaf-b377-4f4ba6f98c1a" name="Changes" comment="">
+    <list default="true" id="0ddfc8f3-71ab-4aaf-b377-4f4ba6f98c1a" name="Changes" comment="updated README &amp; other housekeeping">
+      <change afterPath="$PROJECT_DIR$/.idea/rust-dock.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/rust-docker-master.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/docker.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/docker.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,11 +99,33 @@
       <updated>1721148635328</updated>
       <workItem from="1721148636343" duration="20000" />
       <workItem from="1721219453192" duration="1722000" />
-      <workItem from="1721229648108" duration="1078000" />
+      <workItem from="1721229648108" duration="1841000" />
     </task>
+    <task id="LOCAL-00001" summary="new fn to get raw container info">
+      <option name="closed" value="true" />
+      <created>1721231429314</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1721231429314</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updated README &amp; other housekeeping">
+      <option name="closed" value="true" />
+      <created>1721231488415</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721231488415</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="new fn to get raw container info" />
+    <MESSAGE value="updated README &amp; other housekeeping" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated README &amp; other housekeeping" />
   </component>
 </project>
