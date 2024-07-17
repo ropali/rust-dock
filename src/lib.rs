@@ -1,5 +1,4 @@
 //! Docker
-// #![doc(html_root_url = "https://ghmlee.github.io/rust-docker/doc")]
 #[macro_use]
 extern crate serde_derive;
 
