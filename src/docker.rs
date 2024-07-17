@@ -17,7 +17,7 @@ use hyper::{Body, Client, Method, Request, Uri};
 use hyper::client::HttpConnector;
 
 use hyperlocal::UnixConnector;
-
+use serde::de::DeserializeOwned;
 use tokio::runtime::{Handle, Runtime};
 
 pub struct Docker {
@@ -95,16 +95,16 @@ impl Docker {
                     Protocol::UNIX => self.hyperlocal_client.as_ref().unwrap().request(req),
                     Protocol::TCP => self.hyper_client.as_ref().unwrap().request(req),
                 }
-                .and_then(|res| hyper::body::to_bytes(res.into_body()))
-                .map(|body| String::from_utf8(body.expect("Body should not have an error").to_vec()).unwrap())
-                ),
+                    .and_then(|res| hyper::body::to_bytes(res.into_body()))
+                    .map(|body| String::from_utf8(body.expect("Body should not have an error").to_vec()).unwrap())
+            ),
             Err(_) => Runtime::new().unwrap().block_on(
                 match self.protocol {
                     Protocol::UNIX => self.hyperlocal_client.as_ref().unwrap().request(req),
                     Protocol::TCP => self.hyper_client.as_ref().unwrap().request(req),
                 }
-                .and_then(|res| hyper::body::to_bytes(res.into_body()))
-                .map(|body| String::from_utf8(body.expect("Body should not have an error").to_vec()).unwrap()),
+                    .and_then(|res| hyper::body::to_bytes(res.into_body()))
+                    .map(|body| String::from_utf8(body.expect("Body should not have an error").to_vec()).unwrap()),
             )
         }
     }
@@ -427,7 +427,7 @@ impl Docker {
             self.request(
                 Method::POST,
                 &format!("/images/create?fromImage={}&tag={}", image, tag),
-                "".to_string()
+                "".to_string(),
             )
         );
         let fixed = body.replace("}{", "},{");
@@ -477,20 +477,27 @@ impl Docker {
     }
 
     pub fn get_container_info(&mut self, container: &Container) -> std::io::Result<ContainerInfo> {
+        self.get_container_info_generic(container)
+    }
+
+    pub fn get_container_info_raw(&mut self, container: &Container) -> std::io::Result<serde_json::Value> {
+        self.get_container_info_generic(container)
+    }
+
+    fn get_container_info_generic<T: DeserializeOwned>(&mut self, container: &Container) -> std::io::Result<T> {
         let body = self.request(
             Method::GET,
             &format!("/containers/{}/json", container.Id),
             "".to_string(),
         );
-        // println!("{}", body);
-        let container_info: ContainerInfo = match serde_json::from_str(&body) {
-            Ok(body) => body,
+
+        match serde_json::from_str(&body) {
+            Ok(parsed_body) => Ok(parsed_body),
             Err(e) => {
                 let err = std::io::Error::new(std::io::ErrorKind::InvalidInput, e.to_string());
-                return Err(err);
+                Err(err)
             }
-        };
-        return Ok(container_info);
+        }
     }
 
     pub fn get_filesystem_changes(
