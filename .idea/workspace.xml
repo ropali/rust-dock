@@ -7,12 +7,9 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ddfc8f3-71ab-4aaf-b377-4f4ba6f98c1a" name="Changes" comment="fixed broke tests &amp; added test for new function">
+    <list default="true" id="0ddfc8f3-71ab-4aaf-b377-4f4ba6f98c1a" name="Changes" comment="updated all the tests with latest api data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/docker.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/docker.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/image.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/image.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stats.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/stats.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,22 +30,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Cargo.Run rust-dock.executor&quot;: &quot;Run&quot;,
-    &quot;Cargo.Test rust-dock.executor&quot;: &quot;Run&quot;,
-    &quot;Cargo.Test test::get_container_info.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.rust.reset.selective.auto.import&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/ropali/Workspaces/rust-dock&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
-    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Cargo.Run rust-dock.executor": "Run",
+    "Cargo.Test rust-dock.executor": "Run",
+    "Cargo.Test test::get_container_info.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/ropali/Workspaces/rust-dock",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
+    "org.rust.first.attach.projects": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Cargo.Test rust-dock">
     <configuration name="Run rust-dock" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package rust-dock --bin rust-dock" />
@@ -121,7 +119,7 @@
       <workItem from="1721148636343" duration="20000" />
       <workItem from="1721219453192" duration="1722000" />
       <workItem from="1721229648108" duration="3818000" />
-      <workItem from="1721314066898" duration="2413000" />
+      <workItem from="1721314066898" duration="3091000" />
     </task>
     <task id="LOCAL-00001" summary="new fn to get raw container info">
       <option name="closed" value="true" />
@@ -155,7 +153,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721232420498</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="updated all the tests with latest api data">
+      <option name="closed" value="true" />
+      <created>1721316517624</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1721316517624</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,6 +172,7 @@
     <MESSAGE value="updated README &amp; other housekeeping" />
     <MESSAGE value="removed contribution section for now" />
     <MESSAGE value="fixed broke tests &amp; added test for new function" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed broke tests &amp; added test for new function" />
+    <MESSAGE value="updated all the tests with latest api data" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated all the tests with latest api data" />
   </component>
 </project>
