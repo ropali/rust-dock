@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DeveloperToolsToolWindowSettingsV1" lastSelectedContentNodeId="json-schema-validator">
+    <developerToolsConfigurations>
+      <developerToolConfiguration developerToolId="json-schema-validator" id="acd7c9e0-34a8-4417-afca-199c90d794f0" name="Workbench">
+        <properties>
+          <property key="dataText" type="INPUT" value="kotlin.String|{&#10;  &quot;firstName&quot;: &quot;John&quot;,&#10;  &quot;lastName&quot;: &quot;Doe&quot;,&#10;  &quot;age&quot;: 21&#10;}" />
+          <property key="schemaText" type="INPUT" value="kotlin.String|{&#10;  &quot;Titles&quot;: [&#10;    &quot;UID&quot;,&#10;    &quot;PID&quot;,&#10;    &quot;PPID&quot;,&#10;    &quot;C&quot;,&#10;    &quot;STIME&quot;,&#10;    &quot;TTY&quot;,&#10;    &quot;TIME&quot;,&#10;    &quot;CMD&quot;&#10;  ],&#10;  &quot;Processes&quot;: [&#10;    [&#10;      &quot;root&quot;,&#10;      &quot;13642&quot;,&#10;      &quot;882&quot;,&#10;      &quot;0&quot;,&#10;      &quot;17:03&quot;,&#10;      &quot;pts/0&quot;,&#10;      &quot;00:00:00&quot;,&#10;      &quot;/bin/bash&quot;&#10;    ],&#10;    [&#10;      &quot;root&quot;,&#10;      &quot;13735&quot;,&#10;      &quot;13642&quot;,&#10;      &quot;0&quot;,&#10;      &quot;17:06&quot;,&#10;      &quot;pts/0&quot;,&#10;      &quot;00:00:00&quot;,&#10;      &quot;sleep 10&quot;&#10;    ]&#10;  ]&#10;}" />
+        </properties>
+      </developerToolConfiguration>
+      <developerToolConfiguration developerToolId="json-path" id="b56ca715-9b3b-4794-8310-c4a8dfed491a" name="Workbench">
+        <properties>
+          <property key="sourceText" type="INPUT" value="kotlin.String|{&#10;  &quot;starWars&quot;: {&#10;    &quot;characters&quot;: [&#10;      {&#10;        &quot;forename&quot;: &quot;Luke&quot;,&#10;        &quot;surname&quot;: &quot;Skywalker&quot;,&#10;        &quot;birthdate&quot;: &quot;19 BBY&quot;,&#10;        &quot;homeWorld&quot;: &quot;Tatooine&quot;&#10;      },&#10;      {&#10;        &quot;forename&quot;: &quot;Leia&quot;,&#10;        &quot;surname&quot;: &quot;Organa&quot;,&#10;        &quot;birthdate&quot;: &quot;19 BBY&quot;,&#10;        &quot;homeWorld&quot;: &quot;Alderaan&quot;&#10;      },&#10;      {&#10;        &quot;forename&quot;: &quot;Ben&quot;,&#10;        &quot;surname&quot;: &quot;Solo&quot;,&#10;        &quot;birthdate&quot;: &quot;5 ABY&quot;,&#10;        &quot;homeWorld&quot;: &quot;Chandrila&quot;&#10;      }&#10;    ],&#10;    &quot;ships&quot;: [&#10;      {&#10;        &quot;type&quot;: &quot;Imperial Star Destroyer&quot;,&#10;        &quot;class&quot;: &quot;Carrier&quot;&#10;      },&#10;      {&#10;        &quot;type&quot;: &quot;X-Wing Starfighter&quot;,&#10;        &quot;class&quot;: &quot;Space superiority fighter&quot;&#10;      }&#10;    ]&#10;  }&#10;}" />
+          <property key="contentText" type="INPUT" value="kotlin.String|$.starWars.characters..forename" />
+        </properties>
+      </developerToolConfiguration>
+    </developerToolsConfigurations>
+  </component>
+</project>

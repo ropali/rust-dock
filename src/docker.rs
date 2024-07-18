@@ -452,7 +452,7 @@ impl Docker {
             &format!("/images/json?all={}", a),
             "".to_string(),
         );
-
+        println!("{}",body);
         let images: Vec<Image> = match serde_json::from_str(&body) {
             Ok(images) => images,
             Err(e) => {

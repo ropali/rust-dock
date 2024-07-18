@@ -6,7 +6,8 @@ pub struct Image {
     pub ParentId: String,
     pub RepoTags: Vec<String>,
     pub Size: u64,
-    pub VirtualSize: u64,
+    pub VirtualSize: Option<u64>,
+    pub Labels: serde_json::Value
 }
 
 impl Clone for Image {
@@ -18,6 +19,7 @@ impl Clone for Image {
             RepoTags: self.RepoTags.clone(),
             Size: self.Size,
             VirtualSize: self.VirtualSize,
+            Labels: self.Labels.clone(),
         };
         return image;
     }

@@ -1,10 +1,9 @@
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Stats {
     pub read: String,
-    pub network: Network,
+    pub networks: serde_json::Value,
     pub memory_stats: MemoryStats,
     pub cpu_stats: CpuStats,
-    pub blkio_stats: BlkioStats,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -48,7 +47,6 @@ pub struct MemoryStat {
     pub total_inactive_anon: u64,
     pub rss_huge: u64,
     pub hierarchical_memory_limit: u64,
-    pub hierarchical_memsw_limit: u64,
     pub total_pgfault: u64,
     pub total_active_file: u64,
     pub active_anon: u64,
@@ -60,8 +58,6 @@ pub struct MemoryStat {
     pub pgfault: u64,
     pub inactive_file: u64,
     pub total_pgpgin: u64,
-    pub swap: u64,
-    pub total_swap: u64,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -86,17 +82,6 @@ pub struct ThrottlingData {
     pub throttled_time: u64,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct BlkioStats {
-    pub io_service_bytes_recursive: Vec<BlkioStat>,
-    pub io_serviced_recursive: Vec<BlkioStat>,
-    pub io_queue_recursive: Vec<BlkioStat>,
-    pub io_service_time_recursive: Vec<BlkioStat>,
-    pub io_wait_time_recursive: Vec<BlkioStat>,
-    pub io_merged_recursive: Vec<BlkioStat>,
-    pub io_time_recursive: Vec<BlkioStat>,
-    pub sectors_recursive: Vec<BlkioStat>,
-}
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct BlkioStat {
@@ -110,10 +95,9 @@ impl Clone for Stats {
     fn clone(&self) -> Stats {
         let stats = Stats {
             read: self.read.clone(),
-            network: self.network.clone(),
+            networks: self.networks.clone(),
             memory_stats: self.memory_stats.clone(),
             cpu_stats: self.cpu_stats.clone(),
-            blkio_stats: self.blkio_stats.clone(),
         };
         return stats;
     }
@@ -169,7 +153,6 @@ impl Clone for MemoryStat {
             total_inactive_anon: self.total_inactive_anon,
             rss_huge: self.rss_huge,
             hierarchical_memory_limit: self.hierarchical_memory_limit,
-            hierarchical_memsw_limit: self.hierarchical_memsw_limit,
             total_pgfault: self.total_pgfault,
             total_active_file: self.total_active_file,
             active_anon: self.active_anon,
@@ -181,8 +164,6 @@ impl Clone for MemoryStat {
             pgfault: self.pgfault,
             inactive_file: self.inactive_file,
             total_pgpgin: self.total_pgpgin,
-            swap: self.swap,
-            total_swap: self.total_swap,
         };
         return memory_stat;
     }
@@ -222,21 +203,6 @@ impl Clone for ThrottlingData {
     }
 }
 
-impl Clone for BlkioStats {
-    fn clone(&self) -> Self {
-        let blkio_stats = BlkioStats {
-            io_service_bytes_recursive: self.io_service_bytes_recursive.clone(),
-            io_serviced_recursive: self.io_serviced_recursive.clone(),
-            io_queue_recursive: self.io_queue_recursive.clone(),
-            io_service_time_recursive: self.io_service_time_recursive.clone(),
-            io_wait_time_recursive: self.io_wait_time_recursive.clone(),
-            io_merged_recursive: self.io_merged_recursive.clone(),
-            io_time_recursive: self.io_time_recursive.clone(),
-            sectors_recursive: self.sectors_recursive.clone(),
-        };
-        return blkio_stats;
-    }
-}
 
 impl Clone for BlkioStat {
     fn clone(&self) -> Self {
