@@ -1,5 +1,7 @@
 use std;
+use std::error::{Error as StdError};
 
+use std::io::{Error, Write};
 use crate::container::{Container, ContainerCreate, ContainerInfo};
 use crate::filesystem::FilesystemChange;
 use crate::image::{Image, ImageStatus};
@@ -13,12 +15,13 @@ use crate::futures::FutureExt;
 use crate::futures::TryFutureExt;
 
 use hyper::{Body, Client, Method, Request, Uri};
-
+use hyper::body::HttpBody;
 use hyper::client::HttpConnector;
 
-use hyperlocal::UnixConnector;
+use hyperlocal::{UnixClientExt, UnixConnector, Uri as HyperlocalUri};
 use serde::de::DeserializeOwned;
 use tokio::runtime::{Handle, Runtime};
+use tokio::sync::mpsc;
 
 pub struct Docker {
     protocol: Protocol,
@@ -96,7 +99,10 @@ impl Docker {
                     Protocol::TCP => self.hyper_client.as_ref().unwrap().request(req),
                 }
                     .and_then(|res| hyper::body::to_bytes(res.into_body()))
-                    .map(|body| String::from_utf8(body.expect("Body should not have an error").to_vec()).unwrap())
+                    .map(|body| {
+                        String::from_utf8(body.expect("Body should not have an error").to_vec())
+                            .unwrap()
+                    }),
             ),
             Err(_) => Runtime::new().unwrap().block_on(
                 match self.protocol {
@@ -104,13 +110,48 @@ impl Docker {
                     Protocol::TCP => self.hyper_client.as_ref().unwrap().request(req),
                 }
                     .and_then(|res| hyper::body::to_bytes(res.into_body()))
-                    .map(|body| String::from_utf8(body.expect("Body should not have an error").to_vec()).unwrap()),
-            )
+                    .map(|body| {
+                        String::from_utf8(body.expect("Body should not have an error").to_vec())
+                            .unwrap()
+                    }),
+            ),
         }
     }
 
     fn request(&self, method: Method, url: &str, body: String) -> String {
         self.request_file(method, url, body.into_bytes(), "application/json")
+    }
+
+
+
+    pub async fn stream_container_logs(&self, container_id: &str, sender: mpsc::Sender<String>) -> Result<(), Box<dyn StdError>> {
+        let url = format!("/containers/{}/logs?stdout=true&stderr=true&follow=true", container_id);
+        let uri = match self.protocol {
+            Protocol::UNIX => HyperlocalUri::new(&self.path, &url).into(),
+            Protocol::TCP => format!("{}{}", self.path, url).parse::<Uri>().unwrap(),
+        };
+
+        let req = hyper::Request::builder()
+            .method(Method::GET)
+            .uri(uri)
+            .header("Accept", "application/json")
+            .body(hyper::Body::empty())
+            .expect("request builder");
+
+        let res = match self.protocol {
+            Protocol::UNIX => self.hyperlocal_client.as_ref().unwrap().request(req).await?,
+            Protocol::TCP => self.hyper_client.as_ref().unwrap().request(req).await?,
+        };
+
+        let mut body = res.into_body();
+
+        while let Some(chunk) = body.data().await {
+            let chunk = chunk?;
+            let chunk_str = String::from_utf8_lossy(&chunk).to_string();
+            sender.send(chunk_str).await.expect("Failed to send log chunk");
+        }
+
+        Ok(())
     }
 
     //
@@ -452,7 +493,7 @@ impl Docker {
             &format!("/images/json?all={}", a),
             "".to_string(),
         );
-        println!("{}",body);
+        println!("{}", body);
         let images: Vec<Image> = match serde_json::from_str(&body) {
             Ok(images) => images,
             Err(e) => {
@@ -480,11 +521,17 @@ impl Docker {
         self.get_container_info_generic(container)
     }
 
-    pub fn get_container_info_raw(&mut self, container: &Container) -> std::io::Result<serde_json::Value> {
+    pub fn get_container_info_raw(
+        &mut self,
+        container: &Container,
+    ) -> std::io::Result<serde_json::Value> {
         self.get_container_info_generic(container)
     }
 
-    fn get_container_info_generic<T: DeserializeOwned>(&mut self, container: &Container) -> std::io::Result<T> {
+    fn get_container_info_generic<T: DeserializeOwned>(
+        &mut self,
+        container: &Container,
+    ) -> std::io::Result<T> {
         let body = self.request(
             Method::GET,
             &format!("/containers/{}/json", container.Id),
