@@ -7,7 +7,7 @@ pub struct Image {
     pub RepoTags: Vec<String>,
     pub Size: u64,
     pub VirtualSize: Option<u64>,
-    pub Labels: serde_json::Value
+    pub Labels: serde_json::Value,
 }
 
 impl Clone for Image {
@@ -38,5 +38,31 @@ impl Clone for ImageStatus {
             error: self.status.clone(),
         };
         return image_status;
+    }
+}
+
+
+#[derive(Serialize, Deserialize, Debug)]
+#[allow(non_snake_case)]
+pub struct ImageHistory {
+    pub Id: String,
+    pub Tags: Option<Vec<String>>,
+    pub Size: u64,
+    pub Created: u64,
+    pub CreatedBy: String,
+    pub Comment: String
+}
+
+
+impl Clone for ImageHistory {
+    fn clone(&self) -> Self {
+        return ImageHistory {
+            Id: self.Id.clone(),
+            Tags: self.Tags.clone(),
+            Size: self.Size.clone(),
+            Created: self.Created.clone(),
+            CreatedBy: self.CreatedBy.clone(),
+            Comment: self.Comment.clone()
+        }
     }
 }
