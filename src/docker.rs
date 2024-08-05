@@ -21,6 +21,7 @@ use crate::stats::Stats;
 use crate::system::SystemInfo;
 use crate::version::Version;
 
+#[derive(Clone)]
 pub struct Docker {
     protocol: Protocol,
     path: String,
@@ -28,6 +29,7 @@ pub struct Docker {
     hyper_client: Option<Client<HttpConnector, Body>>,
 }
 
+#[derive(Clone)]
 enum Protocol {
     UNIX,
     TCP,
@@ -313,24 +315,24 @@ impl Docker {
     }
 
 
-    pub fn get_container_info(&mut self, container: &Container) -> std::io::Result<ContainerInfo> {
-        self.get_container_info_generic(container)
+    pub fn get_container_info(&mut self, id_or_name: &str) -> std::io::Result<ContainerInfo> {
+        self.get_container_info_generic(id_or_name)
     }
 
     pub fn get_container_info_raw(
         &mut self,
-        container: &Container,
+        id_or_name: &str,
     ) -> std::io::Result<serde_json::Value> {
-        self.get_container_info_generic(container)
+        self.get_container_info_generic(id_or_name)
     }
 
     fn get_container_info_generic<T: DeserializeOwned>(
         &mut self,
-        container: &Container,
+        id_or_name: &str,
     ) -> std::io::Result<T> {
         let body = self.request(
             Method::GET,
-            &format!("/containers/{}/json", container.Id),
+            &format!("/containers/{}/json", id_or_name),
             "".to_string(),
         );
 
