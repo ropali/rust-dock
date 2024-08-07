@@ -20,6 +20,7 @@ use crate::process::{Process, Top};
 use crate::stats::Stats;
 use crate::system::SystemInfo;
 use crate::version::Version;
+use crate::volume::{Volume, VolumesResponse};
 
 #[derive(Clone)]
 pub struct Docker {
@@ -448,7 +449,6 @@ impl Docker {
     //
 
     pub fn delete_image(&mut self, id_or_name: &str, force: bool, no_prune: bool) -> std::io::Result<bool> {
-
         let qs = format!("force={}&noprune={}", force, no_prune);
 
         let body = self.request(
@@ -608,6 +608,48 @@ impl Docker {
 
         return Ok(body);
     }
+
+
+    //
+    // Volume
+    //
+
+    pub fn get_volumes(&mut self) -> std::io::Result<Vec<Volume>> {
+        let body = self.request(
+            Method::GET,
+            &"/volumes".to_string(),
+            "".to_string(),
+        );
+
+        let data: VolumesResponse = match serde_json::from_str(&body) {
+            Ok(body) => body,
+            Err(e) => {
+                let err = std::io::Error::new(std::io::ErrorKind::InvalidInput, e.to_string());
+                return Err(err);
+            }
+        };
+        return Ok(data.Volumes);
+    }
+
+
+    pub fn inspect_volume(&mut self, id_or_name: &str) -> std::io::Result<Volume> {
+        let body = self.request(
+            Method::GET,
+            &format!("/volumes/{}", id_or_name),
+            "".to_string(),
+        );
+
+        let data: Volume = match serde_json::from_str(&body) {
+            Ok(body) => body,
+            Err(e) => {
+                let err = std::io::Error::new(std::io::ErrorKind::InvalidInput, e.to_string());
+                return Err(err);
+            }
+        };
+        return Ok(data);
+    }
+
+
 
     pub fn ping(&mut self) -> std::io::Result<String> {
         let body = self.request(Method::GET, "/_ping", "".to_string());

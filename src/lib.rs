@@ -23,5 +23,7 @@ pub mod system;
 mod test;
 pub mod version;
 
+pub mod volume;
+
 // publicly re-export
 pub use docker::Docker;
