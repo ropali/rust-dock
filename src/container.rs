@@ -16,6 +16,7 @@ pub struct Container {
     pub SizeRootFs: u64,
     pub Labels: Option<HashMap<String, String>>,
     pub HostConfig: HostConfig,
+    pub Mounts: Option<Vec<serde_json::Value>>
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -121,6 +122,7 @@ impl Clone for Container {
             SizeRootFs: self.SizeRootFs,
             Labels: self.Labels.clone(),
             HostConfig: self.HostConfig.clone(),
+            Mounts: self.Mounts.clone(),
         };
 
         return container;
